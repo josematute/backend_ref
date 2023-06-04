@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser"
 import compression from "compression"
 import cors from "cors"
 import mongoose from "mongoose"
+import router from "./router"
 
 require("dotenv").config()
 const app = express()
@@ -27,6 +28,8 @@ server.listen(8080, () => {
 
 const MONGO_URL = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.pb1am9d.mongodb.net/?retryWrites=true&w=majority`
 
-mongoose.Promise
+mongoose.Promise = Promise
 mongoose.connect(MONGO_URL)
 mongoose.connection.on("error", (error: Error) => console.log(error))
+
+app.use("/", router())
